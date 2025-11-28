@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pronunciation Check</title>
+  <link rel="icon" href="../images/favicon.png" type="image/png">
+</head>
+
+<body>
+
+  <audio id="wordAudio" controls>
+    <source src="../Audio/Single vowel/kr-m-zy-a.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="playAudio">▶️ Play Pronunciation</button>
+  <button id="micBtn">🎤 Speak</button>
+
+  <p id="userSpoken"></p>
+  <p id="resultMessage"></p>
+
+  <script>
+    // Play native audio
+    document.getElementById("playAudio").onclick = () => {
+      document.getElementById("wordAudio").play();
+    };
+
+    const targetWord = "아"; // vowel example
+    const isShort = targetWord.length <= 1; // simple check for vowels
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Load native audio and decode it
+    async function loadNativeAudio(url) {
+      const response = await fetch(url);
+      const arrayBuffer = await response.arrayBuffer();
+      const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+      return audioBuffer.getChannelData(0); // mono channel
+    }
+
+    // Compute normalized RMS of an audio buffer
+    function computeRMS(float32Array) {
+      let sum = 0;
+      for (let i = 0; i < float32Array.length; i++) {
+        sum += float32Array[i] * float32Array[i];
+      }
+      return Math.sqrt(sum / float32Array.length);
+    }
+
+    // Compare two audio buffers using RMS similarity
+    function compareAudio(nativeData, userData) {
+      const minLength = Math.min(nativeData.length, userData.length);
+      let sum = 0;
+      for (let i = 0; i < minLength; i++) {
+        sum += Math.pow(nativeData[i] - userData[i], 2);
+      }
+      const mse = sum / minLength;
+      const similarity = 1 - mse; // 1 = perfect, 0 = totally different
+      return similarity;
+    }
+
+    // ---- RECORD USER AUDIO ----
+    async function recordAndCompare() {
+      const nativeData = await loadNativeAudio("../Audio/Single vowel/kr-m-zy-a.mp3");
+
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      const audioChunks = [];
+
+      mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+
+      mediaRecorder.onstop = async () => {
+        const userBlob = new Blob(audioChunks);
+        const arrayBuffer = await userBlob.arrayBuffer();
+        const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+        const userData = audioBuffer.getChannelData(0);
+
+        const similarity = compareAudio(nativeData, userData);
+
+        if (similarity > 0.7) {
+          document.getElementById("resultMessage").textContent = "✅ Good pronunciation!";
+        } else {
+          document.getElementById("resultMessage").textContent = "❌ Try again!";
+        }
+      };
+
+      mediaRecorder.start();
+      document.getElementById("resultMessage").textContent = "Recording... speak now!";
+      setTimeout(() => mediaRecorder.stop(), 1500); // record 1.5 sec
+    }
+
+    // ---- LONG WORD / SENTENCE ----
+    function levenshtein(a, b) {
+      const matrix = [];
+      for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+      for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+      for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+          matrix[i][j] = b[i - 1] === a[j - 1] ? matrix[i - 1][j - 1] :
+            Math.min(matrix[i - 1][j - 1] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j] + 1);
+        }
+      }
+      return matrix[b.length][a.length];
+    }
+
+    function checkTextPronunciation(userSpeech) {
+      const distance = levenshtein(userSpeech, targetWord);
+      const similarity = 1 - distance / Math.max(userSpeech.length, targetWord.length);
+
+      if (similarity >= 0.8) {
+        document.getElementById("resultMessage").textContent = "✅ Perfect pronunciation!";
+      } else if (similarity >= 0.6) {
+        document.getElementById("resultMessage").textContent = "🟡 Almost there!";
+      } else {
+        document.getElementById("resultMessage").textContent = "❌ Try again!";
+      }
+    }
+
+    // ---- MAIN BUTTON ----
+    document.getElementById("micBtn").onclick = () => {
+      if (isShort) {
+        recordAndCompare();
+      } else {
+        if (!('webkitSpeechRecognition' in window)) return alert("Browser not supported");
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = "ko-KR";
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 3;
+        recognition.continuous = false;
+
+        recognition.onresult = (event) => {
+          const spokenText = event.results[0][0].transcript;
+          document.getElementById("userSpoken").textContent = "You said: " + spokenText;
+          checkTextPronunciation(spokenText);
+          recognition.stop();
+        };
+
+        recognition.onerror = (event) => {
+          document.getElementById("resultMessage").textContent = "❌ Error: " + event.error;
+          recognition.stop();
+        };
+
+        recognition.start();
+        document.getElementById("resultMessage").textContent = "Listening...";
+      }
+    };
+  </script>
+</body>
+
+</html>

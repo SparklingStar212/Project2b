@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linguaplay — Learn Korean Easily</title>
+  <style>
+    :root {
+      --primary: #ff7a1a;
+      --secondary: #ffd35c;
+      --green: #4caf50;
+      --brown: #5a2e0a;
+      --text-dark: #2a2a2a;
+      --bg-light: #fff9f2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: var(--bg-light);
+      color: var(--text-dark);
+    }
+
+    header {
+      width: 100%;
+      padding: 20px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header img.logo-name {
+      height: 60px;
+    }
+
+    header img.logo-icon {
+      height: 70px;
+    }
+
+    .hero {
+      padding: 80px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .hero-text h1 {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .cta-btn {
+      padding: 15px 28px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .cta-btn:hover {
+      background: var(--secondary);
+      color: var(--brown);
+    }
+
+    .features {
+      padding: 60px 5%;
+      text-align: center;
+    }
+
+    .features h2 {
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+      color: var(--primary);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      border: 2px solid var(--secondary);
+    }
+
+    .steps {
+      padding: 60px 5%;
+      background: var(--secondary);
+    }
+
+    .steps h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 35px;
+      color: var(--brown);
+    }
+
+    .steps-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .step-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      border: 2px solid var(--brown);
+    }
+
+    footer {
+      background: var(--brown);
+      color: white;
+      text-align: center;
+      padding: 25px;
+      margin-top: 40px;
+    }
+  </style>
+  <link rel="icon" href="images/favicon.png" type="image/png">
+</head>
+
+<body>
+  <header>
+    <img src="/mnt/data/brand-logo.png" class="logo-icon" />
+    <img src="/mnt/data/brand-name.png" class="logo-name" />
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Learn Korean the Fun Way!</h1>
+      <p>Master Korean with lessons built specifically for English speakers. Simple explanations, fun exercises, and
+        real progress.</p>
+      <button class="cta-btn">Start Learning</button>
+    </div>
+    <div>
+      <img src="/mnt/data/brand-logo.png" style="height: 250px;" />
+    </div>
+  </section>
+
+  <section class="features">
+    <h2>Why Linguaplay?</h2>
+    <div class="feature-grid">
+      <div class="feature-card">Tailored for English speakers only</div>
+      <div class="feature-card">Interactive and fun lessons</div>
+      <div class="feature-card">Gamified progress tracking</div>
+      <div class="feature-card">Learn real-life useful Korean</div>
+    </div>
+  </section>
+
+  <section class="steps">
+    <h2>How It Works</h2>
+    <div class="steps-list">
+      <div class="step-card">1. Create an account</div>
+      <div class="step-card">2. Start your Korean course</div>
+      <div class="step-card">3. Practice daily</div>
+      <div class="step-card">4. Watch your skills grow</div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Linguaplay — Learn Korean Easily
+  </footer>
+</body>
+
+</html>

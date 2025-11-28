@@ -1,0 +1,39 @@
+body {
+  background-color: #121212;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.hero {
+  background: url('images/korean-hero.jpg') center/cover no-repeat;
+  color: white;
+  border-radius: 8px;
+}
+
+.lesson-sidebar a {
+  display: block;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.lesson-sidebar a:hover, .lesson-sidebar a.active {
+  background-color: #444;
+  text-decoration: none;
+}
+
+.lesson-content {
+  border: 1px solid #333;
+}
+
+.lesson-content h2 {
+  border-bottom: 1px solid #555;
+  padding-bottom: 10px;
+}
+
+.progress {
+  height: 20px;
+}
+
+.progress-bar {
+  background-color: #0d6efd;
+}

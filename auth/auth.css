@@ -1,0 +1,168 @@
+/* Auth page styles (login / signup) */
+:root {
+  --auth-bg: #ffffff;
+  --auth-accent: orangered;
+  --auth-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  background: linear-gradient(180deg, #fafafa 0%, #fff 100%);
+}
+
+.auth-container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 20px;
+  /* center content vertically and horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 140px);
+}
+
+.auth-wrapper {
+  width: 100%;
+  display: block;
+  gap: 20px;
+}
+
+.auth-card {
+  background: var(--auth-bg);
+  border-radius: 12px;
+  box-shadow: var(--auth-shadow);
+  padding: 28px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Center and constrain the single auth card for a focused form-only layout */
+.auth-card {
+  /* Narrower form width for better readability */
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.auth-card .brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.auth-card h2 {
+  color: var(--auth-accent);
+  margin-bottom: 6px;
+}
+
+.auth-form .form-control {
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.auth-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 0.95rem;
+}
+
+/* Social auth row */
+.social-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.social-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+  cursor: pointer;
+}
+.social-btn .icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.06);
+}
+.social-google {
+  border-color: #e5e5e5;
+}
+.social-apple {
+  border-color: #e5e5e5;
+}
+.social-facebook {
+  border-color: #e5e5e5;
+}
+
+/* or divider */
+.or-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+  color: #666;
+}
+.or-divider:before,
+.or-divider:after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* Responsive layout: two-column on wider screens */
+/* removed two-column layout since aside is not used; keep single-column centered layout */
+
+@media (max-width: 899px) {
+  .auth-card {
+    padding: 20px;
+  }
+}
+
+/* Make social buttons full width on small screens and reduce horizontal padding */
+@media (max-width: 600px) {
+  .auth-card {
+    max-width: 420px;
+    padding: 18px;
+  }
+  .social-row {
+    gap: 8px;
+  }
+  .social-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 901px) {
+  /* On wider screens keep the form visually constrained */
+  .auth-card {
+    max-width: 520px;
+  }
+}
+
+/* Utility */
+.text-muted.small {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* Make submit full width on small screens */
+@media (max-width: 600px) {
+  .btn.w-100 {
+    width: 100%;
+  }
+}

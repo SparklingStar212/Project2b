@@ -1,0 +1,32 @@
+/* Small helpers to match the main site look */
+body {
+  background: #fff9f2;
+  color: #222;
+}
+.card {
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(43, 43, 43, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+#vowelList .card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+}
+.vowel-char {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: orangered;
+}
+.btn-record.recording {
+  background: #e74c3c;
+  color: #fff;
+}
+.meter {
+  font-weight: 700;
+}
+.small-muted {
+  font-size: 0.9rem;
+  color: #666;
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="dashboard-r.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" href="../../../images/favicon.png" type="image/png">
+</head>
+
+<body style="height: 80vh;" id="body">
+  <nav class="container px-lg-5 py-3 d-flex align-items-center justify-content-between">
+    <div class="brand d-flex align-items-center" onclick="home()">
+      <img src="../../../images/brand-logo.png" alt="Logo" width="35">
+      <img src="../../../images/brand-name.png" alt="LinguaPlay" width="100" class="mt-2">
+    </div>
+  </nav>
+  <main class="container-fluid d-flex gap-5 px-lg-5" id="mainContent">
+    <div class="left-side">
+      <h2>Welcome, <span id="userNameDisplay">User</span>!</h2>
+    </div>
+    <div class="middle">
+      <h2>Continue with your learning journey</h2>
+      <div>
+        <div>
+          <p>LEVEL 1</p>
+          <div class="Levels" id="lessonDivs" onclick="lesson(event)">1</div>
+          <div class="Levels" id="lessonDivs" onclick="lesson(event)">2</div>
+          <div class="Levels" id="lessonDivs" onclick="lesson(event)">3</div>
+          <div class="Levels" id="lessonDivs" onclick="lesson(event)">4</div>
+          <div class="Levels" id="lessonDivs" onclick="lesson(event)">5</div>
+          <div class="Levels" id="lessonDivs" onclick="lesson(event)">1</div>
+          <div class="Levels" id="lessonDivs" onclick="lesson(event)">2</div>
+          <div class="Levels" id="lessonDivs" onclick="lesson(event)">3</div>
+          <div class="Levels" id="lessonDivs" onclick="lesson(event)">4</div>
+          <div class="Levels" id="lessonDivs" onclick="lesson(event)">5</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="dashboard-r.js"></script>
+
+</html>

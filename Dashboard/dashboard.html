@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="icon" href="../images/favicon.png" type="image/png">
+</head>
+
+<body>
+  <audio id="wordAudio" controls>
+    <source src="../Audio/Single vowel/kr-m-zy-a.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="playAudio" class="btn btn-light mt-2">▶️ Play Pronunciation</button>
+
+  <button id="micBtn" class="btn btn-primary mt-3">🎤 Speak</button>
+
+  <p id="userSpoken" class="mt-2 text-info"></p>
+  <p id="resultMessage" class="mt-2"></p>
+
+</body>
+<script>
+  document.getElementById("playAudio").onclick = () => {
+    document.getElementById("wordAudio").play();
+  };
+
+  // Check browser support
+  // Check browser support
+  let isRecognizing = false;
+
+  if (!('webkitSpeechRecognition' in window)) {
+    alert("Your browser doesn't support speech recognition");
+  }
+
+  const recognition = new webkitSpeechRecognition();
+  recognition.timeout = 5000;  // give Chrome more time to detect speech
+  recognition.continuous = false;
+  recognition.lang = "ko-KR";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+  recognition.continuous = false;
+
+  document.getElementById("micBtn").onclick = () => {
+    document.getElementById("resultMessage").textContent = "Listening...";
+
+    setTimeout(() => {  // <-- FIX
+      if (!isRecognizing) {
+        recognition.start();
+        isRecognizing = true;
+      }
+    }, 300);
+  };
+
+  recognition.onstart = () => {
+    console.log("Recognition started");
+  };
+
+  recognition.onspeechend = () => {
+    console.log("Speech ended");
+    recognition.stop();
+  };
+
+  recognition.onend = () => {
+    console.log("Recognition fully stopped");
+    isRecognizing = false; // SUPER IMPORTANT FIX
+  };
+
+  recognition.onresult = (event) => {
+    const spokenText = event.results[0][0].transcript;
+    document.getElementById("userSpoken").textContent =
+      "You said: " + spokenText;
+
+    setTimeout(() => {
+      document.getElementById("userSpoken").textContent = "";
+    }, 5500); // slight delay before checking pronunciation
+
+    checkPronunciation(spokenText);
+  };
+
+  recognition.onerror = (event) => {
+    if (event.error === 'no-speech') {
+      document.getElementById("resultMessage").textContent = "❌ No speech detected. Try again!";
+    } else if (event.error === 'audio-capture') {
+      document.getElementById("resultMessage").textContent = "❌ No microphone detected.";
+    } else if (event.error === 'not-allowed') {
+      document.getElementById("resultMessage").textContent = "❌ Microphone permission denied.";
+    } else {
+      document.getElementById("resultMessage").textContent = "❌ Error: " + event.error;
+    }
+    recognition.stop();
+  };
+
+
+  recognition.onaudiostart = () => console.log("Audio capturing started");
+  recognition.onsoundstart = () => console.log("Sound detected");
+  recognition.onsoundend = () => console.log("Sound ended");
+  recognition.onaudioend = () => console.log("Audio capturing ended");
+
+
+
+
+
+  function checkPronunciation(userSpeech) {
+    const correct = "아"; // Target Korean word
+
+    const distance = levenshtein(userSpeech, correct);
+
+    // Convert distance to similarity (0 to 1)
+    const similarity = 1 - distance / Math.max(userSpeech.length, correct.length);
+
+    let msg = "";
+
+    if (similarity >= 0.8) {
+      msg = "✅ Perfect! Great pronunciation!";
+    } else if (similarity >= 0.6) {
+      msg = "🟡 Almost there! Try again.";
+    } else {
+      msg = "❌ Not quite. Listen again and retry.";
+    }
+
+    document.getElementById("resultMessage").textContent = msg;
+  }
+
+</script>
+
+</html>
