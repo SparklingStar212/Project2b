@@ -15,6 +15,9 @@ const lesson = (event) => {
   body.style.display = "flex";
   body.style.alignItems = "center";
   body.style.justifyContent = "center";
+  setTimeout(() => {
+    window.location.href = "../Lessons/Level - 1/Lesson-1/Lesson-1.html"
+  }, 4000);
 }
 
 
