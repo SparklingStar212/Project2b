@@ -36,7 +36,7 @@ const create = () => {
   createUserWithEmailAndPassword(auth, signupEmail.value, signupPassword.value)
   .then((userCredential) => {
     const user = userCredential.user;
-    window.location.href = "../index.html";
+    window.location.href = "../Dashboard/dashboard-r.html";
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -49,7 +49,7 @@ const signIn = () => {
   signInWithEmailAndPassword(auth, loginEmail.value, loginPassword.value)
   .then((userCredential) => {
     const user = userCredential.user;
-    window.location.href = "../index.html";
+    window.location.href = "../Dashboard/dashboard-r.html";
   })
   .catch((error) => {
     const errorCode = error.code;
